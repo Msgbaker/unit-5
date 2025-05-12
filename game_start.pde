@@ -5,8 +5,7 @@ void gameStarted(){
   //score
   stroke(0);
   fill(0);
-  text(""+score1,585,15);
-  text(""+score2,585,585);
+  text(""+score1,585,15);  text(""+score2,585,585);
   //ability cooldowns
   //flash
   flash.resize(30,30);
@@ -52,6 +51,7 @@ void gameStarted(){
   println(shot);
   //ability desc
   fill(0);
+  textSize(12);
   if(mouseX>=0 && mouseX<=30 && mouseY>=0 && mouseY<=30) text("FLASHBANG Q",69,17);
   if(mouseX>=0 && mouseX<=30 && mouseY>=30 && mouseY<=60) text("Teleports you to mouse E",96,51);
   if(mouseX>=0 && mouseX<=30 && mouseY>=570 && mouseY<=600) text("Speed boost P", 70,587.5);
@@ -85,12 +85,18 @@ void gameStarted(){
   if (dist(x, y, bx, by)<r/2+bd/2) {
     vby=(by-y)/3.6;
     vbx=(bx-x)/3.6;
+    if(vby<0) vby=vby*-1;
+    if(vbx<0) vbx=vbx*-1;
   }
   if (dist(x2, y2, bx, by)<r2/2+bd/2) {
     vby=(by-y2)/ballSped;
     vbx=(bx-x2)/ballSped;
+    if(vby>0) vby=vby*-1;
+    if(vbx>0) vbx=vbx*-1;
     shot=0;
   }
+
+  println(vby);
   //ability's
   //tele
   if (teleCooldown!=0) teleCooldown--;

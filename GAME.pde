@@ -1,5 +1,6 @@
+import processing.sound.*;
 
-
+SoundFile flashBang;
 color white=#FFFFFF;
 color black=#000000;
 color bla=#000000;
@@ -42,9 +43,9 @@ float vby, vbx, abx, aby;
 //player 2 controls
 boolean w, a, s, d;
 boolean w2, a2, s2, d2;
-boolean startGame,startScreen,gameOver;
-boolean player1lose,player2lose;
+int mode,startGame,startScreen,gameOver,player1lose,player2lose;
 void setup() {
+  flashBang=new SoundFile(this,"
   flash=loadImage("flash.png");
   ender=loadImage("ender.png");
   swiftness=loadImage("swiftness.png");
@@ -88,30 +89,29 @@ void setup() {
   power=false;
   score1=0;
   score2=0;
-  startGame=false;
-  startScreen=true;
-  player1lose=false;
-  player2lose=false;
+  mode=0;
+  startGame=1;
+  startScreen=0;
+  player1lose=2;
+  player2lose=-1;
 }
 
 void draw() {
   rectMode(CORNER);
-  if(startGame) gameStarted();
-  if(startScreen) intro();
+  if(mode==startScreen) intro(); 
+  else if(mode==startGame) gameStarted();
+  else if(mode==player1lose) loseScreen1();
+  else if(mode==player2lose) loseScreen2();
   if(score2==15){
-    player1lose=true;
-    startGame=false;
     score1=0;
     score2=0;
+    mode=2;
   }
   if(score1==15){
     score1=0;
     score2=0;
-    startGame=false;
-    player2lose=true;
+    mode=-1;
   }
-  if(player1lose) loseScreen1();
-  if(player2lose) loseScreen2();
 }
 
   void keyPressed() {
@@ -122,14 +122,14 @@ void draw() {
     if (keyCode==RIGHT) d2=true;
     if (key=='p') boost=true;
     //player 1
-    if (key=='w') w=true;
-    if (key=='a') a=true;
-    if (key=='s') s=true;
-    if (key=='d') d=true;
-    if (key=='e') tele=true;
-    if (key=='q') flashed=true;
-    if (key=='r') eTele=true;
-    if(key=='o') power=true;
+    if (key=='w'||key=='W') w=true;
+    if (key=='a'||key=='A') a=true;
+    if (key=='s'||key=='S') s=true;
+    if (key=='d'||key=='D') d=true;
+    if (key=='e'||key=='E') tele=true;
+    if (key=='q'||key=='Q') flashed=true;
+    if (key=='r'||key=='R') eTele=true;
+    if(key=='o'||key=='O') power=true;
   }
   void keyReleased() {
     //player 2
@@ -140,12 +140,12 @@ void draw() {
     if (key=='p') boost=false;
     if(key=='o') power=false;
     //player 1
-    if (key=='w') w=false;
-    if (key=='a') a=false;
-    if (key=='s') s=false;
-    if (key=='d') d=false;
-    if (key=='e') tele=false;
-    if (key=='q') flashed=false;
-    if (key=='r') eTele=false;
+    if (key=='w'||key=='W') w=false;
+    if (key=='a'||key=='A') a=false;
+    if (key=='s'||key=='S') s=false;
+    if (key=='d'||key=='D') d=false;
+    if (key=='e'||key=='E') tele=false;
+    if (key=='q'||key=='Q') flashed=false;
+    if (key=='r'||key=='R') eTele=false;
     
   }

@@ -11,7 +11,6 @@ void intro(){
   textSize(15);
   text("start",300,504);
   if(mouseX>=260 && mouseX<=340 && mouseY>=486 && mouseY<=514 && mousePressed){
-    startGame=true;
-    startScreen=false;
+    mode=1;
   }
 }

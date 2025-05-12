@@ -3,8 +3,6 @@ void tactile(int x,int c,int y,int u){
 }
 void startAgain(int x,int c,int y,int u){
   if(mouseX>=x && mouseX<=c && mouseY>=y && mouseY<=u && mousePressed){
-    startScreen=true;
-    player1lose=false;
-    player2lose=false;
+    mode=0;
   }
 }
